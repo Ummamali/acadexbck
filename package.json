@@ -1,0 +1,21 @@
+{
+  "name": "acadexbackend",
+  "version": "1.0.0",
+  "description": "Backend for acadex app",
+  "license": "MIT",
+  "author": "Ummam Ali",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js",
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}

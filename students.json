@@ -1,0 +1,57 @@
+{
+  "michael": {
+    "name": "Michael Smith",
+    "age": 26,
+    "imageSrc": "http://localhost:5500/user.jpg"
+  },
+  "emily": {
+    "name": "Emily Johnson",
+    "age": 24,
+    "imageSrc": "http://localhost:5500/user2.jpg"
+  },
+  "james": {
+    "name": "James Brown",
+    "age": 25,
+    "imageSrc": "http://localhost:5500/user.jpg"
+  },
+  "olivia": {
+    "name": "Olivia Davis",
+    "age": 23,
+    "imageSrc": "http://localhost:5500/user.jpg"
+  },
+  "william": {
+    "name": "William Miller",
+    "age": 27,
+    "imageSrc": "http://localhost:5500/user2.jpg"
+  },
+  "sophia": {
+    "name": "Sophia Wilson",
+    "age": 22,
+    "imageSrc": "http://localhost:5500/user.jpg"
+  },
+  "benjamin": {
+    "name": "Benjamin Taylor",
+    "age": 28,
+    "imageSrc": "http://localhost:5500/user2.jpg"
+  },
+  "charlotte": {
+    "name": "Charlotte Anderson",
+    "age": 24,
+    "imageSrc": "http://localhost:5500/user.jpg"
+  },
+  "jack": {
+    "name": "Jack Thompson",
+    "age": 26,
+    "imageSrc": "http://localhost:5500/user2.jpg"
+  },
+  "ava": {
+    "name": "Ava Walker",
+    "age": 23,
+    "imageSrc": "http://localhost:5500/user.jpg"
+  },
+  "ethan": {
+    "name": "Ethan Harris",
+    "age": 25,
+    "imageSrc": "http://localhost:5500/user.jpg"
+  }
+}
