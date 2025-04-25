@@ -5,7 +5,7 @@ const multer = require("multer");
 const uuid = require("uuid");
 const path = require("path");
 const { thisServerPort, publicFolderUrl } = require("./config");
-const { json } = require("stream/consumers");
+const { writeToDatabase, deleteFile } = require("./utilFuncs");
 
 const app = express();
 
@@ -73,12 +73,29 @@ app.post("/students", upload.single("studentImg"), (req, res) => {
 
   // Inserting to database
   students[newStudentId] = newStudent;
-  fs.writeFileSync(
-    path.join(__dirname, "students.json"),
-    JSON.stringify(students)
-  );
+  writeToDatabase(students, "students.json");
 
   res.status(201).json({ createdId: newStudentId, created: newStudent });
+});
+
+// Deleting a student
+app.delete("/students/:studentId", (req, res) => {
+  const studentId = req.params.studentId;
+  if (studentId in students) {
+    // deleting profile picture
+    const profileImgName = path.basename(students[studentId].imageSrc);
+    if (profileImgName !== "defaultProfile.svg") {
+      deleteFile("public", profileImgName);
+    }
+
+    // deleting record
+    delete students[studentId];
+    writeToDatabase(students, "students.json");
+
+    res.json({ deletedId: studentId });
+  } else {
+    res.status(404).json({ msg: "Not Found" });
+  }
 });
 
 // Start the server
