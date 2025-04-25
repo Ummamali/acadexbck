@@ -56,12 +56,14 @@ app.post("/students", upload.single("studentImg"), (req, res) => {
 
   const newStudentId = uuid.v4().replace(/-/g, "");
 
+  let imageNewName = "defaultProfile.svg";
   // Dealing with image first
-  const ext = path.extname(req.file.originalname);
-  const imageNewName = `${newStudentId}${ext}`;
-  const newPath = path.join(__dirname, "public", imageNewName);
-
-  fs.renameSync(req.file.path, newPath);
+  if (req.file !== undefined) {
+    const ext = path.extname(req.file.originalname);
+    imageNewName = `${newStudentId}${ext}`;
+    const newPath = path.join(__dirname, "public", imageNewName);
+    fs.renameSync(req.file.path, newPath);
+  }
 
   // Now dealing with data
   const newStudent = {
@@ -69,14 +71,14 @@ app.post("/students", upload.single("studentImg"), (req, res) => {
     imageSrc: publicFolderUrl(imageNewName),
   };
 
-  // Inserting
+  // Inserting to database
   students[newStudentId] = newStudent;
   fs.writeFileSync(
     path.join(__dirname, "students.json"),
     JSON.stringify(students)
   );
 
-  res.json({ msg: "Good" });
+  res.status(201).json({ createdId: newStudentId, created: newStudent });
 });
 
 // Start the server
