@@ -1,11 +1,17 @@
 const express = require("express");
 const fs = require("fs");
 const cors = require("cors");
-const multer = require("multer");
 const uuid = require("uuid");
 const path = require("path");
 const { thisServerPort, publicFolderUrl } = require("./config");
 const { writeToDatabase, deleteFile } = require("./utilFuncs");
+const {
+  uploadProfilePicture,
+  modifyProfilePicture,
+} = require("./multerFileHandling");
+
+// Student resource routes
+const studentGet = require("./Resources/Student/get");
 
 const app = express();
 
@@ -17,66 +23,40 @@ app.use((req, res, next) => {
 
 app.use(cors());
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, path.join(__dirname, "public"));
-  },
-  filename: function (req, file, cb) {
-    // Temporary name, we’ll rename it later using the generated ID
-    cb(null, "temp-" + Date.now() + path.extname(file.originalname));
-  },
-});
-
-const upload = multer({ storage: storage });
-
 const studentsStr = fs.readFileSync("students.json", "utf-8");
 const students = JSON.parse(studentsStr);
 
 // Serve static files from the "public" directory
 app.use(express.static("public"));
 
-// -------------- Student Resource
-// GET Multiple route
-app.get("/students", (req, res) => {
-  res.json(students);
-});
+// registering the routes
+app.use("/students", studentGet);
 
-//GET specific route
-app.get("/students/:stuid", (req, res) => {
-  if (req.params.stuid in students) {
-    res.json(students[req.params.stuid]);
-  } else {
-    res.status(404).json({ msg: "Not Found" });
+// Updating the student object
+app.patch(
+  "/students/:studentId",
+  modifyProfilePicture.single("newImage"),
+  (req, res) => {
+    const studentId = req.params.studentId;
+    const reqObjDelta = JSON.parse(req.body.delta);
+
+    if (!(studentId in students)) {
+      res.status(404).json({ msg: "Not found" });
+      return;
+    }
+
+    if (req.file) {
+      reqObjDelta.imageSrc = publicFolderUrl(req.file.filename);
+      console.log(req.file.filename);
+    }
+
+    // Now changing the internal data
+    students[studentId] = { ...students[studentId], ...reqObjDelta };
+    writeToDatabase(students, "students.json");
+
+    res.json({ modified: students[studentId] });
   }
-});
-
-// Create (POST) a new student
-app.post("/students", upload.single("studentImg"), (req, res) => {
-  const reqObj = JSON.parse(req.body.studentObj);
-
-  const newStudentId = uuid.v4().replace(/-/g, "");
-
-  let imageNewName = "defaultProfile.svg";
-  // Dealing with image first
-  if (req.file !== undefined) {
-    const ext = path.extname(req.file.originalname);
-    imageNewName = `${newStudentId}${ext}`;
-    const newPath = path.join(__dirname, "public", imageNewName);
-    fs.renameSync(req.file.path, newPath);
-  }
-
-  // Now dealing with data
-  const newStudent = {
-    ...reqObj,
-    imageSrc: publicFolderUrl(imageNewName),
-  };
-
-  // Inserting to database
-  students[newStudentId] = newStudent;
-  writeToDatabase(students, "students.json");
-
-  res.status(201).json({ createdId: newStudentId, created: newStudent });
-});
+);
 
 // Deleting a student
 app.delete("/students/:studentId", (req, res) => {
