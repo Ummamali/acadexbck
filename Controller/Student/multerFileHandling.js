@@ -1,20 +1,17 @@
 const multer = require("multer");
 const path = require("path");
-const { deletePossibleFiles } = require("./utilFuncs");
 const uuid = require("uuid");
+const { deletePossibleFiles } = require("../../utilFuncs");
 
 // For saving the profile picture for first time
 function profileDestination(req, file, cb) {
-  cb(null, path.join(__dirname, "public"));
+  cb(null, path.join(__dirname, "..", "..", "public"));
 }
 
 const storage = multer.diskStorage({
   destination: profileDestination,
   filename: (req, file, cb) => {
-    const newStudentId = uuid.v4().replace(/-/g, "");
-    const ext = path.extname(req.file.originalname);
-    req.newStudentId = newStudentId;
-    cb(null, newStudentId + ext);
+    cb(null, req.newStudentId + path.extname(file.originalname));
   },
 });
 

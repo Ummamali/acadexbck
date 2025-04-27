@@ -8,10 +8,11 @@ const { writeToDatabase, deleteFile } = require("./utilFuncs");
 const {
   uploadProfilePicture,
   modifyProfilePicture,
-} = require("./multerFileHandling");
+} = require("./Controller/Student/multerFileHandling");
 
 // Student resource routes
 const studentGet = require("./Resources/Student/get");
+const studentPost = require("./Resources/Student/post");
 
 const app = express();
 
@@ -31,6 +32,7 @@ app.use(express.static("public"));
 
 // registering the routes
 app.use("/students", studentGet);
+app.use("/students", studentPost);
 
 // Updating the student object
 app.patch(
@@ -78,7 +80,9 @@ app.delete("/students/:studentId", (req, res) => {
   }
 });
 
-// Start the server
-app.listen(thisServerPort, () => {
-  console.log(`Server is running at http://localhost:${thisServerPort}`);
-});
+// Starting the server (Commented when testing)
+// app.listen(thisServerPort, () => {
+//   console.log(`Server is running at http://localhost:${thisServerPort}`);
+// });
+
+module.exports = app;
