@@ -7,7 +7,7 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "test": "cross-env NODE_ENV=TEST jest --coverage",
+    "test": "cross-env NODE_ENV=TEST jest",
     "dev": "cross-env NODE_ENV=DEV nodemon index.js",
     "start": "node index.js"
   },
