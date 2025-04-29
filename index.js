@@ -7,14 +7,15 @@ const studentPost = require("./Resources/Student/post");
 const studentPatch = require("./Resources/Student/patch");
 const studentDelete = require("./Resources/Student/delete");
 const { thisServerPort } = require("./config");
+const morgan = require("morgan");
 
 const app = express();
+const environment = process.env.NODE_ENV;
 
 // Middlewares setup
-app.use((req, res, next) => {
-  console.log(`${req.method} ---> ${req.originalUrl}`);
-  next();
-});
+if (environment === "DEV") {
+  app.use(morgan("dev"));
+}
 
 app.use(cors());
 
@@ -28,7 +29,6 @@ app.use("/students", studentPatch);
 app.use("/students", studentDelete);
 
 // Starting the server (Commented when testing)
-const environment = process.env.NODE_ENV;
 if (environment === "DEV" || environment === "PROD") {
   app.listen(thisServerPort, () => {
     console.log(`Server is running at http://localhost:${thisServerPort}`);

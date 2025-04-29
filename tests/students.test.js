@@ -122,7 +122,6 @@ describe("/students", () => {
     let createdStudentId;
 
     beforeAll(async () => {
-      console.log("Creating student for patch");
       // Creating a dummy student
       const studentObj = {
         name: "Peter John",

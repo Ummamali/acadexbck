@@ -19,7 +19,6 @@ function deleteFile(...steps) {
 
   if (fs.existsSync(filePath)) {
     fs.unlinkSync(filePath);
-    console.log("File deleted.");
   }
 }
 
