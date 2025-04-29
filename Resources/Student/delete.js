@@ -22,7 +22,7 @@ router.delete("/:studentId", (req, res) => {
 
     res.json({ deletedId: studentId });
   } else {
-    res.status(404).json({ msg: "Not Found" });
+    res.status(405).json({ msg: "Not Found" });
   }
 });
 
