@@ -54,5 +54,42 @@ Tools for code linting and formatting to ensure clean and consistent code style.
 **Flat File (JSON) Storage**  
 Simple, no-database solution for storing and retrieving student records.
 
+## Installation
+
+Follow the steps below to set up the Acadex backend on your local machine:
+
+1. **Clone the Repository**
+   
+   ```bash
+   git clone https://github.com/ummamali/acadexbck.git
+   cd acadexbck
+   ```
+   
+2. **Install Dependencied**
+
+   ```bash
+   npm install
+   ```
+   
+3. **Run Development Server**
+   
+    ```bash
+    npm run dev
+    ```
+
+### Testing
+
+Acadex uses **Jest** and **Supertest** to test its API routes, ensuring that all endpoints function as expected. The test suite covers core CRUD operations, validating both success scenarios and edge cases. This helps maintain code reliability and catch issues early during development. Tests are organized for clarity and ease of extension as the application grows. Running tests is straightforward and requires no additional setup beyond installing dependencies.
+
+```bash
+npm run test
+```
+
+## Licensing
+
+This project is licensed under the **MIT License**. See the [LICENSE](https://opensource.org/license/MIT) file for more information.
+
+
+
 
 
