@@ -25,3 +25,34 @@ Follows REST principles for clear, consistent, and maintainable endpoint structu
 **Lightweight and Educational**  
 Designed to be minimal and easy to understand, making it ideal for small projects, demos, or full-stack learning.
 
+## Technologies Used
+
+**Node.js**  
+JavaScript runtime environment used to build the backend server.
+
+**Express.js**  
+Minimal and flexible Node.js framework for building RESTful APIs.
+
+**Yup**  
+JavaScript schema builder for validating and parsing request data.
+
+**Git**  
+Version control system used for tracking changes and collaboration.
+
+**Nodemon**  
+Development utility that automatically restarts the server on file changes.
+
+**CORS**  
+Middleware to enable Cross-Origin Resource Sharing between frontend and backend.
+
+**Body-Parser**  
+Middleware to parse incoming request bodies in a middleware before your handlers.
+
+**ESLint & Prettier**  
+Tools for code linting and formatting to ensure clean and consistent code style.
+
+**Flat File (JSON) Storage**  
+Simple, no-database solution for storing and retrieving student records.
+
+
+
