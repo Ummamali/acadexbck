@@ -2,6 +2,8 @@
 
 The Acadex backend is a lightweight RESTful API developed using **Express.js** on **Node.js**, designed to handle CRUD operations for student records. It serves as the core engine of the Acadex application, enabling smooth and responsive interactions with the frontend. Instead of relying on a traditional database, it utilizes a simple **flat file JSON storage**, making it easy to set up, understand, and extend. This approach is especially suitable for educational projects, small-scale tools, or rapid prototyping. With clearly defined endpoints and modular structure, the backend ensures clean code and a minimal footprint for easy maintenance and learning.
 
+Acadex Frontend has been developed in React 19. Click [Acadex](https://github.com/ummamali/acadex) to visit frontend repository.
+
 ## Features
 
 **Create**  
